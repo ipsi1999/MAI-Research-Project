@@ -51,12 +51,19 @@ def get_surface_distances(src_vertices, tgt_vertices):
     return distances
 
 
-def compute_metrics(mesh_pred, mesh_gt):
-    d_pred_to_gt = get_surface_distances(mesh_pred.vertices, mesh_gt.vertices)
-    d_gt_to_pred = get_surface_distances(mesh_gt.vertices, mesh_pred.vertices)
-    assd = (np.mean(d_pred_to_gt) + np.mean(d_gt_to_pred)) / 2
-    hd95 = max(np.percentile(d_pred_to_gt, 95), np.percentile(d_gt_to_pred, 95))
-    hd99 = max(np.percentile(d_pred_to_gt, 99), np.percentile(d_gt_to_pred, 99))
+def compute_metrics(mesh_pred, mesh_gt, n_samples=100000):
+    # Sample points from surface (matches RFENet evaluation approach)
+    pts_pred, _ = trimesh.sample.sample_surface(mesh_pred, n_samples)
+    pts_gt, _ = trimesh.sample.sample_surface(mesh_gt, n_samples)
+
+    tree1 = cKDTree(pts_gt)
+    d1, _ = tree1.query(pts_pred)
+    tree2 = cKDTree(pts_pred)
+    d2, _ = tree2.query(pts_gt)
+
+    assd = (np.mean(d1) + np.mean(d2)) / 2
+    hd95 = max(np.percentile(d1, 95), np.percentile(d2, 95))
+    hd99 = max(np.percentile(d1, 99), np.percentile(d2, 99))
     return assd, hd95, hd99
 
 
