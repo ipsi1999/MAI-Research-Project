@@ -11,6 +11,8 @@
 # Load Python module
 module load Python/3.11.3-gimkl-2022a
 
+python -m pip install nibabel trimesh scikit-image rtree --user --quiet
+
 # Install required packages if not already installed
 python -c "import nibabel, trimesh, skimage; print('All packages available')"
 
