@@ -52,19 +52,20 @@ def get_surface_distances(src_vertices, tgt_vertices):
 
 
 def compute_metrics(mesh_pred, mesh_gt, n_samples=100000):
-    # Sample points from surface (matches RFENet evaluation approach)
-    pts_pred, _ = trimesh.sample.sample_surface(mesh_pred, n_samples)
-    pts_gt, _ = trimesh.sample.sample_surface(mesh_gt, n_samples)
+    # Sample points from surface (matching RFENet trimesh evaluation)
+    pts_pred = mesh_pred.sample(n_samples)
+    pts_gt = mesh_gt.sample(n_samples)
 
-    tree1 = cKDTree(pts_gt)
-    d1, _ = tree1.query(pts_pred)
-    tree2 = cKDTree(pts_pred)
-    d2, _ = tree2.query(pts_gt)
+    # Point-to-face distance (matches RFENet eval_ad_hd_trimesh)
+    _, P2G_dist, _ = trimesh.proximity.closest_point(mesh_pred, pts_gt)
+    _, G2P_dist, _ = trimesh.proximity.closest_point(mesh_gt, pts_pred)
 
-    assd = (np.mean(d1) + np.mean(d2)) / 2
-    hd95 = max(np.percentile(d1, 95), np.percentile(d2, 95))
-    hd99 = max(np.percentile(d1, 99), np.percentile(d2, 99))
-    return assd, hd95, hd99
+    assd = (P2G_dist.sum() + G2P_dist.sum()) / float(P2G_dist.size + G2P_dist.size)
+    hd90 = max(np.percentile(P2G_dist, 90), np.percentile(G2P_dist, 90))
+    hd95 = max(np.percentile(P2G_dist, 95), np.percentile(G2P_dist, 95))
+    hd99 = max(np.percentile(P2G_dist, 99), np.percentile(G2P_dist, 99))
+
+    return assd, hd90, hd95, hd99
 
 
 def main():
@@ -136,6 +137,7 @@ def main():
                     "subject": subj,
                     "k_level": k,
                     "assd_mm": assd,
+                    "hd90_mm": hd90,
                     "hd95_mm": hd95,
                     "hd99_mm": hd99,
                     "mc_time_s": mc_time,
@@ -158,6 +160,8 @@ def main():
     summary = df.groupby("k_level").agg(
         assd_mean=("assd_mm", "mean"),
         assd_std=("assd_mm", "std"),
+        hd90_mean=("hd90_mm", "mean"),
+        hd90_std=("hd90_mm", "std"),
         hd95_mean=("hd95_mm", "mean"),
         hd95_std=("hd95_mm", "std"),
         hd99_mean=("hd99_mm", "mean"),
