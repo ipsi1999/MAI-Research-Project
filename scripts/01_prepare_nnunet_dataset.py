@@ -1,4 +1,3 @@
-cat > 01_prepare_nnunet_dataset.py << 'EOF'
 """
 Prepares nnU-Net v2 dataset for pial segmentation at k2 and k3 resolutions.
 
@@ -111,4 +110,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-EOF
