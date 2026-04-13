@@ -1,0 +1,10 @@
+Started: Mon Apr 13 11:11:40 AM NZST 2026
+The following modules were not unloaded:
+  (Use "module --force purge" to unload all):
+
+  1) NeSI/zen3
+>>> Running plan and preprocess for k2 (Dataset001) and k3 (Dataset002)...
+Fingerprint extraction...
+Dataset001_PialK2
+/var/spool/slurmd/job5496522/slurm_script: line 28: 2502943 Killed                  nnUNetv2_plan_and_preprocess -d 1 2 -c 3d_fullres --verify_dataset_integrity
+[2026-04-12T23:11:52.427] error: Detected 1 oom_kill event in StepId=5496522.batch. Some of the step tasks have been OOM Killed.

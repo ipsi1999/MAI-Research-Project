@@ -8,6 +8,7 @@
 #SBATCH --error=/nesi/project/uoa04396/isin038/logs/nnunet_plan_%j.err
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=isin038@aucklanduni.ac.nz
+set -e
 
 echo "Started: $(date)"
 
@@ -24,7 +25,6 @@ echo ">>> Running plan and preprocess for k2 (Dataset001) and k3 (Dataset002)...
 
 nnUNetv2_plan_and_preprocess -d 1 2 \
     -c 3d_fullres \
-    --verify_dataset_integrity \
-    --no_pbar
+    --verify_dataset_integrity 
 
 echo "Done: $(date)"
