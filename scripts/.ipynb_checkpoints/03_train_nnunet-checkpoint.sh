@@ -4,11 +4,11 @@
 #SBATCH --time=24:00:00
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=8
-#SBATCH --partition=milan
+#SBATCH --partition=genoa,milan
 #SBATCH --gpus-per-node=a100:1
 #SBATCH --output=/nesi/project/uoa04396/isin038/logs/nnunet_train_d%a_f%x_%j.out
 #SBATCH --error=/nesi/project/uoa04396/isin038/logs/nnunet_train_d%a_f%x_%j.err
-#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=isin038@aucklanduni.ac.nz
 #SBATCH --array=1-2
 #SBATCH --exclude=mg16
