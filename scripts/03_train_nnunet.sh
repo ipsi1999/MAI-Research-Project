@@ -11,7 +11,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=isin038@aucklanduni.ac.nz
 #SBATCH --array=1-2
-#SBATCH --exclude=mg16
+#SBATCH --exclude=mg15
 set -e
 
 echo "======================================================"

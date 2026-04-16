@@ -19,13 +19,14 @@ import numpy as np
 RESOLUTION_MAP = {
     "k2": {"dataset_id": "001", "voxel_mm": 0.46875},
     "k3": {"dataset_id": "002", "voxel_mm": 0.3125},
+    "k4": {"dataset_id":"003", "voxel_mm": 0.234375},
 }
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--ixi_root",       required=True)
     parser.add_argument("--out_root",       required=True)
-    parser.add_argument("--resolution",     required=True, choices=["k2","k3"])
+    parser.add_argument("--resolution",     required=True, choices=["k2","k3","k4"])
     parser.add_argument("--test_fraction",  type=float, default=0.15)
     parser.add_argument("--seed",           type=int,   default=42)
     args = parser.parse_args()

@@ -2,7 +2,7 @@
 #SBATCH --job-name=nnunet_plan
 #SBATCH --account=uoa04396
 #SBATCH --time=12:00:00
-#SBATCH --mem=128G
+#SBATCH --mem=196G
 #SBATCH --cpus-per-task=8
 #SBATCH --output=/nesi/project/uoa04396/isin038/logs/nnunet_plan_%j.out
 #SBATCH --error=/nesi/project/uoa04396/isin038/logs/nnunet_plan_%j.err
@@ -21,9 +21,9 @@ export nnUNet_results=/nesi/project/uoa04396/isin038/results/part2/nnUNet_result
 
 mkdir -p ${nnUNet_preprocessed} ${nnUNet_results}
 
-echo ">>> Running plan and preprocess for k2 (Dataset001) and k3 (Dataset002)..."
+echo ">>> Running plan and preprocess for k2 (Dataset001), k3 (Dataset002) and k4 (Dataset003)..."
 
-nnUNetv2_plan_and_preprocess -d 1 2 \
+nnUNetv2_plan_and_preprocess -d 1 2 3 \
     -c 3d_fullres \
     --verify_dataset_integrity 
 

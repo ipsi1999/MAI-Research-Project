@@ -18,19 +18,27 @@ SCRIPTS=/nesi/project/uoa04396/isin038/scripts/scripts
 
 mkdir -p ${OUT_ROOT}
 
-echo ">>> Preparing k2 dataset ..."
-python -u ${SCRIPTS}/01_prepare_nnunet_dataset.py \
-    --ixi_root    ${IXI_ROOT} \
-    --out_root    ${OUT_ROOT} \
-    --resolution  k2 \
-    --test_fraction 0.15 \
-    --seed 42
+# echo ">>> Preparing k2 dataset ..."
+# python -u ${SCRIPTS}/01_prepare_nnunet_dataset.py \
+#     --ixi_root    ${IXI_ROOT} \
+#     --out_root    ${OUT_ROOT} \
+#     --resolution  k2 \
+#     --test_fraction 0.15 \
+#     --seed 42
 
-echo ">>> Preparing k3 dataset ..."
+# echo ">>> Preparing k3 dataset ..."
+# python -u ${SCRIPTS}/01_prepare_nnunet_dataset.py \
+#     --ixi_root    ${IXI_ROOT} \
+#     --out_root    ${OUT_ROOT} \
+#     --resolution  k3 \
+#     --test_fraction 0.15 \
+#     --seed 42
+
+echo ">>> Preparing k4 dataset ..."
 python -u ${SCRIPTS}/01_prepare_nnunet_dataset.py \
     --ixi_root    ${IXI_ROOT} \
     --out_root    ${OUT_ROOT} \
-    --resolution  k3 \
+    --resolution  k4 \
     --test_fraction 0.15 \
     --seed 42
 
