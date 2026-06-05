@@ -21,9 +21,10 @@ export nnUNet_results=/nesi/project/uoa04396/isin038/results/part2/nnUNet_result
 
 mkdir -p ${nnUNet_preprocessed} ${nnUNet_results}
 
-echo ">>> Running plan and preprocess for k2 (Dataset001), k3 (Dataset002) and k4 (Dataset003)..."
+echo ">>> Running plan and preprocess for k4 (Dataset003)..." ###k2 (Dataset001), k3 (Dataset002)
 
-nnUNetv2_plan_and_preprocess -d 1 2 3 \
+##previously for both k2 and k3 -d 1 2 3
+nnUNetv2_plan_and_preprocess -d 3 \
     -c 3d_fullres \
     --verify_dataset_integrity 
 

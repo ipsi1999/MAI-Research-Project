@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=infer_nnunet
 #SBATCH --account=uoa04396
-#SBATCH --time=04:00:00
-#SBATCH --mem=64G
+#SBATCH --time=12:00:00
+#SBATCH --mem=128G
 #SBATCH --cpus-per-task=8
 #SBATCH --partition=milan,genoa
 #SBATCH --gpus-per-node=a100:1
@@ -10,8 +10,8 @@
 #SBATCH --error=/nesi/project/uoa04396/isin038/logs/nnunet_infer_%a_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=isin038@aucklanduni.ac.nz
-#SBATCH --array=1-2
-#SBATCH --exclude=mg16
+#SBATCH --array=1-3
+
 set -e
 
 echo "======================================================"
@@ -29,18 +29,20 @@ export nnUNet_preprocessed=/nesi/project/uoa04396/isin038/results/part2/nnUNet_p
 export nnUNet_results=/nesi/project/uoa04396/isin038/results/part2/nnUNet_results
 
 case $SLURM_ARRAY_TASK_ID in
-  1) DATASET_NAME="Dataset001_PialK2" ; RES="k2" ;;
-  2) DATASET_NAME="Dataset002_PialK3" ; RES="k3" ;;
+  1) DATASET_NAME="Dataset001_PialK2" ; RES="k2" ; FOLDS="0 1 2 3 4" ;;
+  2) DATASET_NAME="Dataset002_PialK3" ; RES="k3" ; FOLDS="0 1 2 3 4" ;;
+  3) DATASET_NAME="Dataset003_PialK4" ; RES="k4" ; FOLDS="0 1 2 3 4" ;;
 esac
 
 mkdir -p /nesi/project/uoa04396/isin038/results/part2/predictions/${RES}
+
 
 nnUNetv2_predict \
     -i ${nnUNet_raw}/${DATASET_NAME}/imagesTs \
     -o /nesi/project/uoa04396/isin038/results/part2/predictions/${RES} \
     -d $SLURM_ARRAY_TASK_ID \
     -c 3d_fullres \
-    -f 0 1 2 3 4 \
+    -f ${FOLDS} \
     --disable_progress_bar \
     --continue_prediction
     

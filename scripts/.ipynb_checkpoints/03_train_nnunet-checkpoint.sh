@@ -31,6 +31,6 @@ export nnUNet_results=/nesi/project/uoa04396/isin038/results/part2/nnUNet_result
 
 echo ">>> Training Dataset${SLURM_ARRAY_TASK_ID}, 3d_fullres, fold ${FOLD} ..."
 
-nnUNetv2_train ${SLURM_ARRAY_TASK_ID} 3d_fullres ${FOLD}
+nnUNetv2_train ${SLURM_ARRAY_TASK_ID} 3d_fullres ${FOLD} 
 
 echo "Done: $(date)"

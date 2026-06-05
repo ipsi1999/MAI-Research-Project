@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=nnunet_train
+#SBATCH --job-name=nnunet_train_k4
 #SBATCH --account=uoa04396
 #SBATCH --time=24:00:00
-#SBATCH --mem=64G
+#SBATCH --mem=128G
 #SBATCH --cpus-per-task=8
 #SBATCH --partition=genoa,milan
 #SBATCH --gpus-per-node=a100:1
@@ -10,7 +10,7 @@
 #SBATCH --error=/nesi/project/uoa04396/isin038/logs/nnunet_train_d%a_f%x_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=isin038@aucklanduni.ac.nz
-#SBATCH --array=1-2
+#SBATCH --array=3
 #SBATCH --exclude=mg15
 set -e
 
